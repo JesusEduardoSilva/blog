@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+<% if notice.present? %>
+  <div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<p>
+    <%= image_tag @produto.cover.url(:medium) %>
+<p>
+  <strong>Titulo:</strong>
+  <%= @produto.titulo %>
+</p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @produto.descricao %>
+</p>
+<p>
+  <strong>Valor:</strong>
+  <%= number_to_currency(@produto.valor, unit: "R$", separator: ",", delimiter: ".") %>
+
+</p>
+
+<%= link_to 'Editar', edit_produto_path(@produto) %> |
+<%= link_to 'Voltar', produtos_path %>
