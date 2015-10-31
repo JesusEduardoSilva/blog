@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023235038) do
+ActiveRecord::Schema.define(version: 20151030173748) do
+
+  create_table "avaliacaos", force: :cascade do |t|
+    t.string   "usuario_id", limit: 255
+    t.string   "produto_id", limit: 255
+    t.integer  "nota",       limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "comentarios", force: :cascade do |t|
     t.integer  "usuario_id", limit: 4
@@ -19,6 +27,7 @@ ActiveRecord::Schema.define(version: 20151023235038) do
     t.text     "descricao",  limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "produto_id", limit: 4
   end
 
   add_index "comentarios", ["post_id"], name: "index_comentarios_on_post_id", using: :btree
@@ -44,6 +53,15 @@ ActiveRecord::Schema.define(version: 20151023235038) do
     t.integer  "cover_file_size",    limit: 4
     t.datetime "cover_updated_at"
     t.decimal  "valor",                            precision: 8, scale: 2
+    t.integer  "usuario_id",         limit: 4
+  end
+
+  create_table "sugestaos", force: :cascade do |t|
+    t.string   "usuario_id", limit: 255
+    t.string   "produto_id", limit: 255
+    t.text     "descricao",  limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "usuarios", force: :cascade do |t|

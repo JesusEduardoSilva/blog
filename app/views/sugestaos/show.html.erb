@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @sugestao.usuario.nome %>
+</p>
+
+<p>
+  <strong>Promoção:</strong>
+  <%= image_tag(@sugestao.produto.cover.url(:medium))  %>
+</p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @sugestao.descricao %>
+</p>
+
+<%= link_to 'Editar', edit_sugestao_path(@sugestao),
+     :class => 'btn btn-warning' %>  
+<%= link_to 'Voltar', sugestaos_path,
+     :class => 'btn btn-default'  %>

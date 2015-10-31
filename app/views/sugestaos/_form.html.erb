@@ -1,0 +1,50 @@
+<%= form_for(@sugestao) do |f| %>
+  <% if @sugestao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sugestao.errors.count, "error") %> prohibited this sugestao from being saved:</h2>
+
+      <ul>
+      <% @sugestao.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :usuario_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :usuario_id, Usuario.all, :id, :nome, { include_blank: true }, class: 'form-control' %>
+    </div>
+    <%= error_span(@sugestao[:usuario_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :produto_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :produto_id, Produto.all, :id, :titulo, { include_blank: true }, class: 'form-control', id: 'sugestao_produto_id' %>    
+    </div>
+    <img src="<%= @sugestao.produto.cover.url(:medium) if @sugestao.id %>" id="imagem-produto">
+    <%= error_span(@sugestao[:produto_id]) %>
+  </div>
+ <div class="control-group">
+    <%= f.label :descricao, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :descricao, :class => 'form-control', rows: 5 %>
+    </div>
+    <%= error_span(@sugestao[:descricao]) %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit 'Salvar', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+
+  $("#sugestao_produto_id").change(function(){
+    $.get("/sugestaos/"+this.value+"/pegar_imagem/", function(imagem_url){
+      $("#imagem-produto").attr("src",imagem_url);
+    });
+  });
+
+</script>

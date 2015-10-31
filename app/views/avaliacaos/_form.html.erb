@@ -1,0 +1,51 @@
+
+<%= form_for(@avaliacao) do |f| %>
+  <% if @avaliacao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@avaliacao.errors.count, "error") %> prohibited this sugestao from being saved:</h2>
+
+      <ul>
+      <% @avaliacao.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :usuario_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :usuario_id, Usuario.all, :id, :nome, { include_blank: true }, class: 'form-control' %>
+    </div>
+    <%= error_span(@avaliacao[:usuario_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :produto_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :produto_id, Produto.all, :id, :titulo, { include_blank: true }, class: 'form-control', id: 'avaliacao_produto_id' %>    
+    </div>
+    <img src="<%= @avaliacao.produto.cover.url(:medium) if @avaliacao.id %>" id="imagem-produto">
+    <%= error_span(@avaliacao[:produto_id]) %>
+  </div>
+ <div class="control-group">
+    <%= f.label :nota, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :nota, :class => 'form-control', rows: 5 %>
+    </div>
+    <%= error_span(@avaliacao[:nota]) %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit 'Salvar', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+
+  $("#avaliacao_produto_id").change(function(){
+    $.get("/avaliacaos/"+this.value+"/pegar_imagem/", function(imagem_url){
+      $("#imagem-produto").attr("src",imagem_url);
+    });
+  });
+
+</script>

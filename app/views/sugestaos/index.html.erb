@@ -1,12 +1,12 @@
 <div class="page-header">
-<h1>Promoções</h1>
+<h1>Sugestões</h1>
 <div class="row">
   <div class="col-xs-8">
-    <%= link_to 'Novo', new_produto_path, 
+    <%= link_to 'Novo', new_sugestao_path, 
             :class => 'btn btn-primary' %>
   </div>
    <div class="col-xs-4 text-right">
-    <%= form_tag(produtos_path, method: "get") do %>
+    <%= form_tag(sugestaos_path, method: "get") do %>
       <div class="input-group">
         <%= text_field_tag(:p, '', class: 'form-control') %>
         <span class="input-group-btn">
@@ -25,31 +25,30 @@
 <table class="table table-striped">
   <thead>
     <tr>   
-      <th></th>   
-      <th>Titulo</th>     
-      <th>Valor</th>
+      <th>Usuario</th>   
+      <th>Promoção</th>     
+      <th>Descrição</th>
       <th colspan="3"></th>
     </tr>
   </thead>
   <tbody>
-    <% @produtos.each do |produto| %>
+    <% @sugestaos.each do |sugestao| %>
       <tr>        
-        <td><%= image_tag(produto.cover.url(:medium)) %></td>
-        <td><%= produto.titulo %></td>          
-        <td><%= produto.valor %></td>
-        <td> <%= link_to 'Visualizar', produto,
+        <td><%= sugestao.usuario.nome%></td>
+        <td><%= image_tag(sugestao.produto.cover.url(:medium)) %></td>          
+        <td><%= sugestao.descricao %></td>
+        <td> <%= link_to 'Visualizar', sugestao,
                       :class => 'btn btn-info' %>
 
-          <%= link_to 'Editar', edit_produto_path(produto),
+          <%= link_to 'Editar', edit_sugestao_path(sugestao),
                       :class => 'btn btn-warning' %>
           
-          <%= link_to 'Excluir', produto_path(produto),
+          <%= link_to 'Excluir', sugestao_path(sugestao),
                       :method => :delete,
                       :data => { :confirm => 'Confirma a exclusão?' },
                       :class => 'btn btn-danger' %>
         </td>
+      </tr>
     <% end %>
   </tbody>
 </table>
-
-  
